@@ -5,11 +5,11 @@
 ## A Heat environment file which can be used to set up storage
 ## backends. Defaults to Ceph used as a backend for Cinder, Glance and
 ## Nova ephemeral storage.
-#resource_registry:
-#  OS::TripleO::Services::CephMgr: /usr/share/openstack-tripleo-heat-templates/docker/services/ceph-ansible/ceph-mgr.yaml
-#  OS::TripleO::Services::CephMon: /usr/share/openstack-tripleo-heat-templates/docker/services/ceph-ansible/ceph-mon.yaml
-#  OS::TripleO::Services::CephOSD: /usr/share/openstack-tripleo-heat-templates/docker/services/ceph-ansible/ceph-osd.yaml
-#  OS::TripleO::Services::CephClient: /usr/share/openstack-tripleo-heat-templates/docker/services/ceph-ansible/ceph-client.yaml
+resource_registry:
+  OS::TripleO::Services::CephMgr: /usr/share/openstack-tripleo-heat-templates/docker/services/ceph-ansible/ceph-mgr.yaml
+  OS::TripleO::Services::CephMon: /usr/share/openstack-tripleo-heat-templates/docker/services/ceph-ansible/ceph-mon.yaml
+  OS::TripleO::Services::CephOSD: /usr/share/openstack-tripleo-heat-templates/docker/services/ceph-ansible/ceph-osd.yaml
+  OS::TripleO::Services::CephClient: /usr/share/openstack-tripleo-heat-templates/docker/services/ceph-ansible/ceph-client.yaml
 
 parameter_defaults:
   #CephAnsiblePlaybook: ['/usr/share/ceph-ansible/site-docker.yml.sample']
@@ -19,17 +19,17 @@ parameter_defaults:
   ## Whether to enable iscsi backend for Cinder.
   CinderEnableIscsiBackend: false
   ## Whether to enable rbd (Ceph) backend for Cinder.
-  CinderEnableRbdBackend: false
+  CinderEnableRbdBackend: true
   ## Cinder Backup backend can be either 'ceph' or 'swift'.
-  CinderBackupBackend: swift
+  CinderBackupBackend: ceph
   ## Whether to enable NFS backend for Cinder.
   # CinderEnableNfsBackend: false
   ## Whether to enable rbd (Ceph) backend for Nova ephemeral storage.
-  NovaEnableRbdBackend: false
+  NovaEnableRbdBackend: true
   ## Glance backend can be either 'rbd' (Ceph), 'swift' or 'file'.
-  GlanceBackend: swift
+  GlanceBackend: rbd
   ## Gnocchi backend can be either 'rbd' (Ceph), 'swift' or 'file'.
-  GnocchiBackend: swift
+  GnocchiBackend: rbd
 
 
   #### CINDER NFS SETTINGS ####
@@ -62,7 +62,7 @@ parameter_defaults:
   ## they need to be provided manually.
 
   ## Number of Ceph storage nodes to deploy
-  # CephStorageCount: 0
+  CephStorageCount: 1
   ## Ceph FSID, e.g. '4b5c8c0a-ff60-454b-a1b4-9747aa737d19'
   # CephClusterFSID: ''
   ## Ceph monitor key, e.g. 'AQC+Ox1VmEr3BxAALZejqeHj50Nj6wJDvs96OQ=='
@@ -73,7 +73,23 @@ parameter_defaults:
   # CephClientKey: ''
   ## OSDs configuration
   ## See https://github.com/ceph/ceph-ansible/blob/stable-3.0/docs/source/osds/scenarios.rst
-  # CephAnsibleDisksConfig:
-  #   devices:
-  #   - /dev/vdb
-  #   osd_scenario: collocated
+  CephAnsibleDisksConfig:
+    devices:
+    - /dev/vdb
+    osd_scenario: collocated
+  CephPools:
+    - name: images
+      pg_num: 8
+      rule_name: ""
+    - name: metrics
+      pg_num: 4
+      rule_name: ""
+    - name: backups
+      pg_num: 8
+      rule_name: ""
+    - name: vms
+      pg_num: 8
+      rule_name: ""
+    - name: volumes
+      pg_num: 8
+      rule_name: ""

@@ -3,7 +3,9 @@ parameter_defaults:
   OvercloudComputeFlavor: compute
   OvercloudCephStorageFlavor: ceph-storage
   OvercloudNetworkerFlavor: network
+  OvercloudComputeHCIFlavor: compute
   ControllerCount: 1
   ComputeCount: 1
-  CephStorageCount: 0
-  NetworkerCount: 1
+  CephStorageCount: 1
+  ComputeHCICount: 0
+  NetworkerCount: 0
