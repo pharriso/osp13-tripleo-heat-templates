@@ -6,6 +6,6 @@ parameter_defaults:
   OvercloudComputeHCIFlavor: compute
   ControllerCount: 1
   ComputeCount: 1
-  CephStorageCount: 1
+  CephStorageCount: 3
   ComputeHCICount: 0
   NetworkerCount: 0

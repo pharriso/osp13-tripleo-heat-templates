@@ -1,4 +1,4 @@
-# Generated with the following on 2018-07-23T08:16:57.838438
+# Generated with the following on 2018-07-28T12:15:35.051514
 #
 #   openstack overcloud container image prepare --namespace=registry.access.redhat.com/rhosp13 --push-destination=192.168.24.1:8787 --prefix=openstack- --tag-from-label {version}-{release} --output-env-file=/home/stack/templates/overcloud_images.yaml --output-images-file /home/stack/local_registry_images.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/ceph-ansible/ceph-ansible.yaml --set ceph_namespace=registry.access.redhat.com/rhceph --set ceph_image=rhceph-3-rhel7 --tag-from-label {version}-{release}
 #
