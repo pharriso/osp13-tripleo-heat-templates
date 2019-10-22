@@ -5,7 +5,7 @@ parameter_defaults:
   OvercloudNetworkerFlavor: network
   OvercloudComputeHCIFlavor: compute
   ControllerCount: 1
-  ComputeCount: 1
+  ComputeCount: 2
   CephStorageCount: 3
   ComputeHCICount: 0
   NetworkerCount: 0
