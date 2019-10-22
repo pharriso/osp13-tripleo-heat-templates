@@ -4,5 +4,9 @@ openstack overcloud deploy --templates \
   -e /home/stack/templates/overcloud_images.yaml \
   -e /usr/share/openstack-tripleo-heat-templates/environments/network-isolation.yaml \
   -e /home/stack/templates/network-environment.yaml \
-  -e /home/stack/templates/storage-environment.yaml \
-  --ntp-server pool.ntp.org \
+  -e /home/stack/templates/hci_ports.yml\
+  -e /usr/share/openstack-tripleo-heat-templates/environments/ceph-ansible/ceph-rgw.yaml \
+  -e /home/stack/templates/ceph-storage-environment.yaml \
+  -e /usr/share/openstack-tripleo-heat-templates/environments/disable-telemetry.yaml \
+  -e /home/stack/templates/custom-params.yaml \
+  --ntp-server 192.168.24.1 \
