@@ -22,6 +22,9 @@ resource_registry:
   # Port assignments for the Networker
   OS::TripleO::Networker::Net::SoftwareConfig:
     /home/stack/templates/nic-configs/network.yaml
+  # Port assignments for the HCI
+  OS::TripleO::ComputeHCI::Net::SoftwareConfig:
+    /home/stack/templates/nic-configs/compute-hci.yaml
 
 parameter_defaults:
   # This section is where deployment-specific configuration is done
@@ -35,7 +38,7 @@ parameter_defaults:
   StorageMgmtNetCidr: '172.16.3.0/24'
   InternalApiNetCidr: '172.16.2.0/24'
   TenantNetCidr: '172.16.0.0/24'
-  ExternalNetCidr: '10.50.0.0/24'
+  ExternalNetCidr: '172.16.5.0/24'
   ManagementNetCidr: '10.0.1.0/24'
   # Customize the VLAN IDs to match the local environment
   StorageNetworkVlanID: 30
@@ -49,10 +52,10 @@ parameter_defaults:
   InternalApiAllocationPools: [{'start': '172.16.2.4', 'end': '172.16.2.250'}]
   TenantAllocationPools: [{'start': '172.16.0.4', 'end': '172.16.0.250'}]
   # Leave room if the external network is also used for floating IPs
-  ExternalAllocationPools: [{'start': '10.50.0.230', 'end': '10.50.0.240'}]
+  ExternalAllocationPools: [{'start': '172.16.5.4', 'end': '172.16.5.240'}]
   ManagementAllocationPools: [{'start': '10.0.1.4', 'end': '10.0.1.250'}]
   # Gateway routers for routable networks
-  ExternalInterfaceDefaultRoute: '10.50.0.2'
+  ExternalInterfaceDefaultRoute: '192.168.24.1'
   # Define the DNS servers (maximum 2) for the overcloud nodes
   DnsServers: ["8.8.8.8","8.8.4.4"]
   # List of Neutron network types for tenant networks (will be used in order)

@@ -1,5 +1,5 @@
 parameter_defaults:
-  PublicVirtualFixedIPs: [{'ip_address':'10.50.0.251'}]
+  #PublicVirtualFixedIPs: [{'ip_address':'10.50.0.251'}]
   CeilometerStoreEvents: true
 
   #ControllerExtraConfig:

@@ -1,6 +1,6 @@
 heat_template_version: queens
 description: >
-  Software Config to drive os-net-config with 2 bonded nics on a bridge with VLANs attached for the Controller role.
+  Software Config to drive os-net-config with 2 bonded nics on a bridge with VLANs attached for the Compute role.
 parameters:
   ControlPlaneIp:
     default: ''
@@ -104,7 +104,7 @@ resources:
                   next_hop:
                     get_param: EC2MetadataIp
               - type: ovs_bridge
-                name: br-int
+                name: bridge_name
                 dns_servers:
                   get_param: DnsServers
                 members:
@@ -140,16 +140,6 @@ resources:
                   addresses:
                   - ip_netmask:
                       get_param: TenantIpSubnet
-                - type: vlan
-                  vlan_id:
-                    get_param: ExternalNetworkVlanID
-                  addresses:
-                  - ip_netmask:
-                      get_param: ExternalIpSubnet
-                  routes:
-                  - default: true
-                    next_hop:
-                      get_param: ExternalInterfaceDefaultRoute
 outputs:
   OS::stack_id:
     description: The OsNetConfigImpl resource.
