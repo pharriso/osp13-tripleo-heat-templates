@@ -14,6 +14,8 @@ resource_registry:
   OS::TripleO::NodeUserData: /home/stack/templates/wipe-disks.yaml
 
 parameter_defaults:
+  # Needed for this test environment with rgw
+  CephPoolDefaultPgNum: 8
   #CephAnsiblePlaybook: ['/usr/share/ceph-ansible/site-docker.yml.sample']
 
   #### BACKEND SELECTION ####
@@ -79,10 +81,11 @@ parameter_defaults:
     devices:
     - /dev/vdb
     - /dev/vdc
+    - /dev/vdd
     osd_scenario: collocated
   CephPools:
     - name: images
-      pg_num: 128
+      pg_num: 64
       rule_name: ""
     - name: metrics
       pg_num: 8
@@ -91,8 +94,8 @@ parameter_defaults:
       pg_num: 8
       rule_name: ""
     - name: vms
-      pg_num: 128
+      pg_num: 64
       rule_name: ""
     - name: volumes
-      pg_num: 128
+      pg_num: 64
       rule_name: ""

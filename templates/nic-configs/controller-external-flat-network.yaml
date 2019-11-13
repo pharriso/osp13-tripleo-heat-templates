@@ -104,9 +104,7 @@ resources:
                   next_hop:
                     get_param: EC2MetadataIp
               - type: ovs_bridge
-                name: bridge_name
-                dns_servers:
-                  get_param: DnsServers
+                name: br-int
                 members:
                 - type: linux_bond
                   name: bond1
@@ -140,16 +138,24 @@ resources:
                   addresses:
                   - ip_netmask:
                       get_param: TenantIpSubnet
-                - type: vlan
-                  vlan_id:
-                    get_param: ExternalNetworkVlanID
-                  addresses:
-                  - ip_netmask:
-                      get_param: ExternalIpSubnet
-                  routes:
-                  - default: true
-                    next_hop:
-                      get_param: ExternalInterfaceDefaultRoute
+              - type: ovs_bridge
+                name: bridge_name
+                dns_servers:
+                  get_param: DnsServers
+                use_dhcp: false
+                addresses:
+                - ip_netmask:
+                    get_param: ExternalIpSubnet
+                routes:
+                - default: true
+                  next_hop:
+                    get_param: ExternalInterfaceDefaultRoute
+                members:
+                - type: interface
+                  name: nic3
+                  use_dhcp: false
+                  primary: true
+
 outputs:
   OS::stack_id:
     description: The OsNetConfigImpl resource.
